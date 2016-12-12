@@ -77,26 +77,26 @@ for i=1:m
   Y(i, y(i)) = 1;
 endfor
 
-X = [ones(size(X,1),1) X];
-%A2 = X * Theta1';
-%A2 = [ones(size(A2,1)) A2];
-%A3 = A2 * Theta2';
+A1 = [ones(m,1) X];
+z2 = A1 * Theta1';
+A2 = [ones(size(z2,1), 1) sigmoid(z2)];
+z3 = A2 * Theta2';
+A3 = sigmoid(z3);
+h = A3;
 
-feed_forward_values = zeros(m, num_labels);
-for i=1:m
-  x = X(i,:);
-  a2 = sigmoid(Theta1 * x');
-  a2 = [1; a2];
-  h = sigmoid(Theta2 * a2);
-  feed_forward_values(i,:) = h';
-  current_y = Y(i)';
+J = 1 / m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1 - h)));
 
-  current_cost = 1 / m * (-current_y * log(h) - (1 - current_y) * log(1 - h));
-  J = J + current_cost;
-  %-1 * current_y * a3'
-  %sum(Y(i) - a3');
-endfor
+%feed_forward_values = zeros(m, num_labels);
+%for i=1:m
+  %x = X(i,:);
+  %a2 = sigmoid(Theta1 * x');
+  %a2 = [1; a2];
+  %h = sigmoid(Theta2 * a2);
+  %feed_forward_values(i,:) = h';
+%endfor
 
+
+%J = 1 / m * (-y * log(feed_forward_values) - (1 - y) * log(1 - feed_forward_values));
 
 
 
