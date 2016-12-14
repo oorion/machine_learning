@@ -84,7 +84,7 @@ z3 = A2 * Theta2';
 A3 = sigmoid(z3);
 h = A3;
 
-J = 1 / m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1 - h)));
+J = 1 / m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1 - h))) + lambda/(2 * m) * sum(sum(Theta1.^2));
 
 %feed_forward_values = zeros(m, num_labels);
 %for i=1:m
